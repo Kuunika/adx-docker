@@ -54,7 +54,7 @@ CREATE TABLE `Migration` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `Migrationdataelements`;
-CREATE TABLE `migrationdataelements` (
+CREATE TABLE `Migrationdataelements` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `migrationId` int(11) NOT NULL,
   `productId` int(11) NOT NULL,
