@@ -1,0 +1,59 @@
+version: '3'
+services:
+  adx_rabbitmq:
+    container_name: adx-rabbitmq
+    image: rabbitmq:3
+    ports:
+      - "56720:5672"
+  adx_mysql:
+    container_name: adx-mysql
+    image: kuunika/adx-mysql
+    env_file:
+      - ./.env.mysql
+    ports:
+      - "5080:3306"
+  adx_validation:
+    container_name: adx-validation
+    image: kuunika/adx-validation
+    depends_on:
+      - adx_rabbitmq
+      - adx_mysql
+    volumes:
+      - /home/kuunika1/Projects/dhis2-integration-mediator/data:/adx-data
+      - ./.env:/adx-validation-worker/.env
+  adx_migration:
+    container_name: adx-migration
+    image: kuunika/adx-migration
+    depends_on:
+      - adx_rabbitmq
+      - adx_mysql
+    volumes:
+      - ./.env:/dhis2-migration-worker/.env
+    command: bash -c "cd /dhis2-migration-worker/ && npm start"
+  adx_email:
+    container_name: adx-email
+    image: kuunika/adx-email
+    depends_on:
+      - adx_rabbitmq
+      - adx_mysql
+    volumes:
+      - ./.env:/dhis2-email-worker/.env
+    command: bash -c "cd /dhis2-email-worker/ && npm start"
+  adx_failqueue:
+    container_name: adx-failqueue
+    image: kuunika/adx-failqueue
+    depends_on:
+      - adx_rabbitmq
+      - adx_mysql
+    volumes:
+      - ./.env:/dhis2-fail-queue-worker/.env
+    command: bash -c "cd /dhis2-fail-queue-worker/ && npm start"
+  adx_logs:
+    container_name: adx-logs
+    image: kuunika/adx-logs
+    depends_on:
+      - adx_rabbitmq
+      - adx_mysql
+    volumes:
+      - ./.env:/adx-log-worker/.env
+    command: bash -c "cd /adx-log-worker/ && npm start"
