@@ -9,7 +9,7 @@ services:
     container_name: adx-mysql
     image: kuunika/adx-mysql
     env_file:
-      - ./.env.mysql
+      - ./.containers.env
     ports:
       - "5080:3306"
   adx_validation:
@@ -18,8 +18,10 @@ services:
     depends_on:
       - adx_rabbitmq
       - adx_mysql
+    env_file:
+      - ./.containers.env
     volumes:
-      - /home/kuunika1/Projects/dhis2-integration-mediator/data:/adx-data
+      - ${MEDIATOR_DATA_DIR}:/adx-data/
       - ./.env:/adx-validation-worker/.env
   adx_migration:
     container_name: adx-migration
