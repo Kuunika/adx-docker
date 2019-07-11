@@ -12,6 +12,11 @@ services:
       - ./.containers.env
     ports:
       - "3307:3306"
+  adx_redis:
+    container_name: adx-redis
+    image: redis
+    ports:
+      - "6379:6379"
   adx_validation:
     container_name: adx-validation
     image: kuunika/adx-validation
@@ -56,6 +61,7 @@ services:
     depends_on:
       - adx_rabbitmq
       - adx_mysql
+      - adx_redis
     volumes:
       - ./.env:/adx-log-worker/.env
     command: bash -c "cd /adx-log-worker/ && npm start"
