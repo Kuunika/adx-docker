@@ -36,7 +36,7 @@ services:
       - adx_mysql
     volumes:
       - ./.env:/dhis2-migration-worker/.env
-    command: bash -c "cd /dhis2-migration-worker/ && npm start"
+    command: bash -c "cd /dhis2-migration-worker/ && npm i && npm start"
   adx_email:
     container_name: adx-email
     image: kuunika/adx-email
@@ -45,7 +45,7 @@ services:
       - adx_mysql
     volumes:
       - ./.env:/dhis2-email-worker/.env
-    command: bash -c "cd /dhis2-email-worker/ && npm start"
+    command: bash -c "cd /dhis2-email-worker/ && npm i && npm start"
   adx_failqueue:
     container_name: adx-failqueue
     image: kuunika/adx-failqueue
@@ -54,7 +54,7 @@ services:
       - adx_mysql
     volumes:
       - ./.env:/dhis2-fail-queue-worker/.env
-    command: bash -c "cd /dhis2-fail-queue-worker/ && npm start"
+    command: bash -c "cd /dhis2-fail-queue-worker/ && npm i && npm start"
   adx_logs:
     container_name: adx-logs
     image: kuunika/adx-logs
@@ -64,4 +64,4 @@ services:
       - adx_redis
     volumes:
       - ./.env:/adx-log-worker/.env
-    command: bash -c "cd /adx-log-worker/ && npm start"
+    command: bash -c "cd /adx-log-worker/ && npm i && npm start"
