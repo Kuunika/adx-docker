@@ -9,6 +9,7 @@ services:
   adx_mysql:
     container_name: adx-mysql
     image: kuunika/adx-mysql
+    command: --max_allowed_packet=32505856
     env_file:
       - ./.containers.env
     ports:
