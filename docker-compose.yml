@@ -2,8 +2,9 @@ version: '3'
 services:
   adx_rabbitmq:
     container_name: adx-rabbitmq
-    image: rabbitmq:3
+    image: rabbitmq:3-management
     ports:
+      - "15673:15672"
       - "56720:5672"
   adx_mysql:
     container_name: adx-mysql
@@ -15,11 +16,13 @@ services:
   adx_redis:
     container_name: adx-redis
     image: redis
+    tty: true
     ports:
       - "6379:6379"
   adx_validation:
     container_name: adx-validation
     image: kuunika/adx-validation
+    tty: true
     depends_on:
       - adx_rabbitmq
       - adx_mysql
@@ -32,6 +35,7 @@ services:
   adx_migration:
     container_name: adx-migration
     image: kuunika/adx-migration
+    tty: true
     depends_on:
       - adx_rabbitmq
       - adx_mysql
@@ -41,6 +45,7 @@ services:
   adx_email:
     container_name: adx-email
     image: kuunika/adx-email
+    tty: true
     depends_on:
       - adx_rabbitmq
       - adx_mysql
@@ -50,6 +55,7 @@ services:
   adx_failqueue:
     container_name: adx-failqueue
     image: kuunika/adx-failqueue
+    tty: true
     depends_on:
       - adx_rabbitmq
       - adx_mysql
@@ -59,6 +65,7 @@ services:
   adx_logs:
     container_name: adx-logs
     image: kuunika/adx-logs
+    tty: true
     depends_on:
       - adx_rabbitmq
       - adx_mysql
