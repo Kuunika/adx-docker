@@ -36,6 +36,7 @@ CREATE TABLE `Failqueue` (
 DROP TABLE IF EXISTS `Migration`;
 CREATE TABLE `Migration` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `channelId` varchar(255) NOT NULL DEFAULT `channelId`,
   `uploadedAt` datetime DEFAULT NULL,
   `structureValidatedAt` datetime DEFAULT NULL,
   `structureFailedValidationAt` datetime DEFAULT NULL,
