@@ -34,7 +34,7 @@ services:
     volumes:
       - ${MEDIATOR_DATA_DIR}:/adx-data/
       - ./.env:/adx-validation-worker/.env
-    command: bash -c "cd /adx-validation-worker/ && npm i && npm start"
+    command: bash -c "cd /adx-validation-worker/ && npm start"
   adx_migration:
     container_name: adx-migration
     image: kuunika/adx-migration
@@ -44,7 +44,7 @@ services:
       - adx_mysql
     volumes:
       - ./.env:/dhis2-migration-worker/.env
-    command: bash -c "cd /dhis2-migration-worker/ && npm i && npm start"
+    command: bash -c "cd /dhis2-migration-worker/ && npm start"
   adx_email:
     container_name: adx-email
     image: kuunika/adx-email
